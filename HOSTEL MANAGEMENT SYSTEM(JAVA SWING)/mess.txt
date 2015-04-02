@@ -1,0 +1,520 @@
+package hos;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.sql.*;
+public class Mess extends JFrame implements ActionListener
+{ 
+     JLabel l0;
+     JButton btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12;
+     Mess()
+     {
+        setVisible(true);
+        setSize(1400,800);
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        l0=new JLabel("Choose the mess type");
+        l0.setForeground(Color.BLACK);
+        l0.setFont(new Font("Serif",Font.BOLD,40));
+        l0.setBounds(150,100,900,30);
+        add(l0);
+        btn1=new JButton("veg");
+        btn1.setBounds(150,400,150,40);
+        btn1.setActionCommand("veg");
+        btn1.setFont(new Font("Serif",Font.BOLD,30));
+        add(btn1);
+        btn1.addActionListener(this);
+        
+        btn2=new JButton("nonveg");
+        btn2.setBounds(400,400,250,40);
+        btn2.setActionCommand("nonveg");
+        btn2.setFont(new Font("Serif",Font.BOLD,30));
+        add(btn2);
+        btn2.addActionListener(this);
+        btn3=new JButton("vboys");
+        btn3.setBounds(100,400,150,50);
+        btn3.setActionCommand("vboys");
+        btn3.setFont(new Font("Serif",Font.BOLD,20));
+        btn3.addActionListener(this);
+        
+        btn4=new JButton("vgirls");
+        btn4.setBounds(300,400,150,50);
+        btn4.setActionCommand("vgirls");
+        btn4.setFont(new Font("Serif",Font.BOLD,20));
+        btn4.addActionListener(this);
+        
+        btn5=new JButton("home");
+        btn5.setBounds(700,400,200,40);
+        btn5.setActionCommand("home");
+        btn5.setFont(new Font("Serif",Font.BOLD,30));
+        add(btn5);
+        btn5.addActionListener(this);
+        setVisible(true);
+       
+        btn6=new JButton("both");
+        btn6.setBounds(500,400,150,40);
+        btn6.setActionCommand("bg");
+        btn6.setFont(new Font("Serif",Font.BOLD,30));
+        btn6.addActionListener(this);
+        
+        btn7=new JButton("both");
+        btn7.setBounds(500,400,150,40);
+        btn7.setActionCommand("bgnv");
+        btn7.setFont(new Font("Serif",Font.BOLD,30));
+        btn7.addActionListener(this);
+        
+        btn8=new JButton("back");
+        btn8.setBounds(300,600,150,40);
+        btn8.setActionCommand("back");
+        btn8.setFont(new Font("Serif",Font.BOLD,30));
+        btn8.addActionListener(this);
+        
+        btn9=new JButton("nvboys");
+        btn9.setBounds(100,400,150,40);
+        btn9.setActionCommand("nvboys");
+        btn9.setFont(new Font("Serif",Font.BOLD,30));
+        btn9.addActionListener(this);
+        
+        btn10=new JButton("nvgirls");
+        btn10.setBounds(300,400,150,40);
+        btn10.setActionCommand("nvgirls");
+        btn10.setFont(new Font("Serif",Font.BOLD,30));
+        btn10.addActionListener(this);
+        
+        btn11=new JButton("ok");
+        btn11.setBounds(300,650,100,30);
+        btn11.setActionCommand("ok");
+        btn11.setFont(new Font("Serif",Font.BOLD,30));
+        btn11.addActionListener(this);
+        
+        btn12=new JButton("ok");
+        btn12.setBounds(300,650,100,30);
+        btn12.setActionCommand("ok1");
+        btn12.setFont(new Font("Serif",Font.BOLD,30));
+        btn12.addActionListener(this);
+        
+        
+        
+        
+        setVisible(true);
+        
+       
+        
+     }
+      @Override
+    public void actionPerformed(ActionEvent e)
+            
+    {        
+
+        switch (e.getActionCommand()) {
+           case "veg":
+               veg1();
+               break;
+           case "nonveg":
+               nveg();
+               break;
+           case "home":
+               new Index();
+               break;
+           case "vboys":
+               veg3();
+               break;
+           case "vgirls":
+               veg4();
+               break;
+           case "nvboys":
+               nveg1();
+               break;
+           case "nvgirls":
+               nveg2();
+               break;
+           case "back":
+               new Mess();
+               break;
+           case "bg":
+               bng();
+               break;
+           case "bgnv":
+               bngnv();
+               break;
+           case "ok":
+               veg1();
+               break;
+           case "ok1":
+               nveg();
+               break;
+           default:
+               break;
+        }
+    }
+    public void veg1()
+    {
+        JFrame f2=new JFrame();
+        f2.add(btn3);
+        f2.add(btn4);
+        f2.add(btn6);
+        f2.add(btn5);
+        f2.add(btn8);
+        f2.setLayout(null);
+        f2.setSize(1400,800);
+        f2.setVisible(true);
+        
+    }
+    public void bng()
+    {
+         try
+         {
+
+        JLabel l1,l2,l3;
+        JFrame f1 = new JFrame();
+        String str1,str2;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","kili");
+        Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery("\n select name,rollno from stud where messtype='veg' \n");
+        int x1,x2,y1,y2,z1,z2,a1,a2;
+        x1=150;
+        y1=150;
+        x2=450;
+        y2=150;
+        z1=0;
+        z2=0;
+        a1=0;
+        a2=0;
+        while(rs.next())
+        {    
+        f1.setLayout(null);
+        f1.setSize(1200,1200);
+         
+        l3=new JLabel("Students Details");
+        l3.setFont(new Font("Serif",Font.BOLD,20));
+        l3.setBounds(150,50,200,100); 
+        str1=rs.getString(1);
+        str2=rs.getString(2);
+        l1=new JLabel(str1);
+        l2=new JLabel(str2);
+          //System.out.println(str1);
+          //System.out.println(str2);
+          l1.setBounds(x1,y1,70,15);  
+          l2.setBounds(x2,y2,70,15);
+          f1.add(l3);
+          f1.add(l1);
+          f1.add(l2);
+          f1.add(btn11);
+         
+         
+          f1.setVisible(true);
+          x1=x1+0;
+          y1=y1+20;
+          x2=x2+0;
+          y2=y2+20;
+          f1.setVisible(true);
+        }
+    }
+    catch(ClassNotFoundException | SQLException e)
+    {
+      System.out.println(e);  
+    }
+       
+    }
+    public void nveg()
+    {
+        JFrame f5=new JFrame();
+        f5.setSize(1400,800);
+        f5.setVisible(true);
+        f5.add(btn7);
+        f5.add(btn5);
+        f5.add(btn8);
+        f5.add(btn9);
+        f5.add(btn10);
+        f5.setLayout(null);
+        f5.setVisible(true);
+        
+    }
+    public void bngnv()
+    {
+         try
+         {
+
+        JLabel l1,l2,l3;
+        JFrame f1 = new JFrame();
+        String str1,str2;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","kili");
+        Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery("\n select name,rollno from stud where messtype='nonveg' \n");
+        int x1,x2,y1,y2,z1,z2,a1,a2;
+        x1=150;
+        y1=150;
+        x2=450;
+        y2=150;
+        z1=0;
+        z2=0;
+        a1=0;
+        a2=0;
+        while(rs.next())
+        {    
+        f1.setLayout(null);
+        f1.setSize(1200,1200);
+         
+        l3=new JLabel("Students Details");
+        l3.setFont(new Font("Serif",Font.BOLD,20));
+        l3.setBounds(150,50,200,100); 
+        str1=rs.getString(1);
+        str2=rs.getString(2);
+        l1=new JLabel(str1);
+        l2=new JLabel(str2);
+          //System.out.println(str1);
+          //System.out.println(str2);
+          l1.setBounds(x1,y1,70,15);  
+          l2.setBounds(x2,y2,70,15);
+          f1.add(l3);
+          f1.add(l1);
+          f1.add(l2);
+          f1.add(btn12);
+         
+         
+          f1.setVisible(true);
+          x1=x1+0;
+          y1=y1+20;
+          x2=x2+0;
+          y2=y2+20;
+          f1.setVisible(true);
+        }
+    }
+    catch(ClassNotFoundException | SQLException e)
+    {
+      System.out.println(e);  
+    }
+       
+    }
+     public void veg3()
+    {
+         try
+         {
+
+        JLabel l1,l2,l3;
+        JFrame f1 = new JFrame();
+        String str1,str2;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","kili");
+        Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery("\n select name,rollno from stud where messtype='veg' and sex='male' \n");
+        int x1,x2,y1,y2,z1,z2,a1,a2;
+        x1=150;
+        y1=150;
+        x2=450;
+        y2=150;
+        z1=0;
+        z2=0;
+        a1=0;
+        a2=0;
+        while(rs.next())
+        {    
+        f1.setLayout(null);
+        f1.setSize(1200,1200);
+         
+        l3=new JLabel("Students Details");
+        l3.setFont(new Font("Serif",Font.BOLD,20));
+        l3.setBounds(150,50,200,100); 
+        str1=rs.getString(1);
+        str2=rs.getString(2);
+        l1=new JLabel(str1);
+        l2=new JLabel(str2);
+          //System.out.println(str1);
+          //System.out.println(str2);
+          l1.setBounds(x1,y1,70,15);  
+          l2.setBounds(x2,y2,70,15);
+          f1.add(l3);
+          f1.add(l1);
+          f1.add(l2);
+          f1.add(btn11);
+         
+         
+          f1.setVisible(true);
+          x1=x1+0;
+          y1=y1+20;
+          x2=x2+0;
+          y2=y2+20;
+          f1.setVisible(true);
+        }
+    }
+    catch(ClassNotFoundException | SQLException e)
+    {
+      System.out.println(e);  
+    }
+    }
+     public void veg4()
+     {
+         try
+         {
+
+        JLabel l1,l2,l3;
+        JFrame f1 = new JFrame();
+        String str1,str2;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","kili");
+        Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery("\n select name,rollno from stud where messtype='veg' and sex='female' \n");
+        int x1,x2,y1,y2,z1,z2,a1,a2;
+        x1=150;
+        y1=150;
+        x2=450;
+        y2=150;
+        z1=0;
+        z2=0;
+        a1=0;
+        a2=0;
+        while(rs.next())
+        {    
+        f1.setLayout(null);
+        f1.setSize(1200,1200);
+         
+        l3=new JLabel("Students Details");
+        l3.setFont(new Font("Serif",Font.BOLD,20));
+        l3.setBounds(150,50,200,100); 
+        str1=rs.getString(1);
+        str2=rs.getString(2);
+        l1=new JLabel(str1);
+        l2=new JLabel(str2);
+          //System.out.println(str1);
+          //System.out.println(str2);
+          l1.setBounds(x1,y1,70,15);  
+          l2.setBounds(x2,y2,70,15);
+          f1.add(l3);
+          f1.add(l1);
+          f1.add(l2);
+          f1.add(btn11);
+         
+         
+          
+          x1=x1+0;
+          y1=y1+20;
+          x2=x2+0;
+          y2=y2+20;
+          f1.setVisible(true);
+        } 
+       }
+    catch(ClassNotFoundException | SQLException e)
+    {
+      System.out.println(e);  
+    }
+       
+     }
+     public void nveg1()
+     {
+         try
+         {
+        
+        JLabel l1,l2,l3;
+        JFrame f1 = new JFrame();
+        String str1,str2;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","kili");
+        Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery("\n select name,rollno from stud where messtype='nonveg' and sex='male' \n");
+        int x1,x2,y1,y2,z1,z2,a1,a2;
+        x1=150;
+        y1=150;
+        x2=450;
+        y2=150;
+        z1=0;
+        z2=0;
+        a1=0;
+        a2=0;
+        while(rs.next())
+        {   
+        f1.setLayout(null);
+        f1.setSize(1200,1200);
+        
+         
+        l3=new JLabel("Students Details");
+        l3.setFont(new Font("Serif",Font.BOLD,20));
+        l3.setBounds(150,50,200,100); 
+        str1=rs.getString(1);
+        str2=rs.getString(2);
+        l1=new JLabel(str1);
+        l2=new JLabel(str2);
+          //System.out.println(str1);
+          //System.out.println(str2);
+          l1.setBounds(x1,y1,70,15);  
+          l2.setBounds(x2,y2,70,15);
+          f1.add(l3);
+          f1.add(l1);
+          f1.add(l2);
+          f1.add(btn12);
+          x1=x1+0;
+          y1=y1+20;
+          x2=x2+0;
+          y2=y2+20;
+          f1.setVisible(true);
+        }
+    }
+    catch(ClassNotFoundException | SQLException e)
+    {
+      System.out.println(e);  
+    }
+            
+     }
+     public void nveg2()
+     {
+         try
+         {
+
+        JLabel l1,l2,l3;
+        JFrame f1 = new JFrame();
+        String str1,str2;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","kili");
+        Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery("\n select name,rollno from stud where messtype='nonveg' and sex='female' \n");
+        int x1,x2,y1,y2,z1,z2,a1,a2;
+        x1=150;
+        y1=150;
+        x2=450;
+        y2=150;
+        z1=0;
+        z2=0;
+        a1=0;
+        a2=0;
+        while(rs.next())
+        {    
+        f1.setLayout(null);
+        f1.setSize(1200,1200);
+         
+        l3=new JLabel("Students Details");
+        l3.setFont(new Font("Serif",Font.BOLD,20));
+        l3.setBounds(150,50,200,100); 
+        str1=rs.getString(1);
+        str2=rs.getString(2);
+        l1=new JLabel(str1);
+        l2=new JLabel(str2);
+          //System.out.println(str1);
+          //System.out.println(str2);
+          l1.setBounds(x1,y1,70,15);  
+          l2.setBounds(x2,y2,70,15);
+          f1.add(l3);
+          f1.add(l1);
+          f1.add(l2);
+          f1.add(btn12);
+         
+          f1.setVisible(true);
+          x1=x1+0;
+          y1=y1+20;
+          x2=x2+0;
+          y2=y2+20;
+          f1.setVisible(true);
+        }
+    }
+    catch(ClassNotFoundException | SQLException e)
+    {
+      System.out.println(e);  
+    }
+       
+     }
+   public static void main(String args[])
+   {
+       new Mess();
+   }
+}

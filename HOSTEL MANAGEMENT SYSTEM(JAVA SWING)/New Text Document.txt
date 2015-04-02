@@ -1,0 +1,108 @@
+package hos;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.sql.*;
+public class Gen3 extends JFrame implements ActionListener
+{
+  JLabel l0;
+  JButton btn4,btn5;
+  Gen3()
+  {
+      setVisible(true);
+      setSize(1000,1000);
+      setLayout(null);
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      l0=new JLabel("Students accomodated due to internships");
+      l0.setForeground(Color.BLACK);
+      l0.setFont(new Font("Serif",Font.BOLD,40));
+      l0.setBounds(150,100,1000,50);
+      add(l0);
+     
+      btn5=new JButton("view");
+      btn5.setBounds(200,250,200,40);
+      btn5.setActionCommand("view");
+      btn5.setFont(new Font("Serif",Font.BOLD,30));
+      add(btn5);
+      btn5.addActionListener(this);
+      
+  }
+     @Override
+public void actionPerformed(ActionEvent e)
+{
+    switch (e.getActionCommand()) {
+           case "view":
+                display();
+                break;
+           case "back":
+               new Generate();
+               break;
+           default:
+               break;
+    }
+}
+public void display()
+{
+    try
+
+    {   JLabel l1,l2,l3;
+        JFrame f1 = new JFrame();
+        String str1,str2;
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","kili");
+        Statement stmt=con.createStatement();
+        ResultSet rs=stmt.executeQuery("\n select name,rollno from stud where acc='internships' \n");
+        int x1,x2,y1,y2,z1,z2,a1,a2;
+        x1=150;
+        y1=150;
+        x2=450;
+        y2=150;
+        z1=0;
+        z2=0;
+        a1=0;
+        a2=0;
+        while(rs.next())
+        {
+         f1.setLayout(null);
+         f1.setSize(1200,1200);
+         
+          l3=new JLabel("Students Details");
+          l3.setFont(new Font("Serif",Font.BOLD,20));
+          l3.setBounds(150,50,200,100); 
+          str1=rs.getString(1);
+          str2=rs.getString(2);
+          l1=new JLabel(str1);
+          l2=new JLabel(str2);
+          //System.out.println(str1);
+          //System.out.println(str2);
+          l1.setBounds(x1,y1,70,15);  
+          l2.setBounds(x2,y2,70,15);
+          f1.add(l3);
+          f1.add(l1);
+          f1.add(l2);
+          btn4=new JButton("back");
+          btn4.setBounds(350,600,200,40);
+          btn4.setActionCommand("back");
+          btn4.setFont(new Font("Serif",Font.BOLD,30));
+          f1.add(btn4);
+          btn4.addActionListener(this);
+          
+          f1.setVisible(true);
+          x1=x1+0;
+          y1=y1+20;
+          x2=x2+0;
+          y2=y2+20;
+        }
+         }
+    catch(ClassNotFoundException | SQLException e)
+    {
+      System.out.println(e);  
+    }
+}
+ 
+public static void main(String [] args)
+{
+new Gen3();
+}
+}

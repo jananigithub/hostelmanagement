@@ -1,0 +1,120 @@
+package hos;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.sql.*;
+public class Select extends JFrame implements ActionListener
+{ 
+    JLabel l0,l1;
+    JButton btn1,btn2;
+    JTextField t1;
+    Select()
+    {   
+        
+        setSize(1400,800);
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        l0=new JLabel("Retrieval of students mess details");
+        l0.setForeground(Color.BLACK);
+        l0.setFont(new Font("Serif",Font.BOLD,40));
+        l0.setBounds(300,100,600,30);
+        add(l0);
+        l1=new JLabel("Enter rollno:");
+        l1.setForeground(Color.BLACK);
+        l1.setFont(new Font("Serif",Font.BOLD,20));
+        l1.setBounds(80,300,200,60);
+        add(l1);
+        t1=new JTextField();
+        t1.setBounds(200,300,200,50);
+        add(t1);
+        btn1=new JButton("submit");
+        btn1.setBounds(200,600,100,40);
+        btn2=new JButton("home");
+        btn2.setBounds(400,600,100,40);
+        btn1.setActionCommand("submit");
+        btn1.setFont(new Font("Serif",Font.BOLD,20));
+        add(btn1);
+        btn1.addActionListener(this);
+        btn2.setActionCommand("home");
+        btn2.setFont(new Font("Serif",Font.BOLD,20));
+        add(btn2);
+        btn2.addActionListener(this);
+        setVisible(true);
+
+    }
+    @Override
+    public void actionPerformed(ActionEvent e)
+            
+    {        
+
+        switch (e.getActionCommand()) {
+           case "submit":
+               display();
+               break;
+           case "home":
+               new Index();
+               break;
+           case "ok":
+               new Select();
+               break;
+           default:
+               break;
+        }
+    }
+   public void display()
+   { 
+     String a,b,c;
+     JFrame f2;
+     JFrame f1=new JFrame();
+     JLabel l2,l3;
+     JButton btn3;
+     try
+     {
+         Class.forName("oracle.jdbc.driver.OracleDriver");
+         Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","kili");
+         Statement stmt=con.createStatement();
+         a=t1.getText();
+         ResultSet rs=stmt.executeQuery("select name,rollno,messtype from stud where  rollno='"+a+"'");
+         if(rs.next())
+                 {
+                   c=rs.getString(3);  
+                   b=rs.getString(1);   
+                   f2=new JFrame();
+                   JLabel l1=new JLabel("The candidate is "+b+" who belongs to "+c+" mess");
+                   l1.setBounds(80,150,300,100);
+                   l1.setForeground(Color.BLUE);
+                   f2.add(l1);
+                   f2.setSize(500,500);
+                   btn3=new JButton("ok");
+                   btn3.setBounds(300,350,100,30);
+                   btn3.setActionCommand("ok");
+                   btn3.addActionListener(this);
+                   f2.setLayout(null);
+                   f2.add(btn3);
+                   f2.setVisible(true);
+                   }
+         else
+         {   
+             JOptionPane.showMessageDialog(null,"Input is wrong");
+             l3=new JLabel("input is wrong");
+             f1.add(l3);
+         }
+         
+     }
+      catch(ClassNotFoundException | SQLException | HeadlessException ex)
+    {
+        System.out.println(ex);
+    }
+     
+   }
+   
+   public void aaa()
+   {
+       new Select1();
+   }
+   public static void main(String args[])
+   {
+       new Select();
+   }
+}

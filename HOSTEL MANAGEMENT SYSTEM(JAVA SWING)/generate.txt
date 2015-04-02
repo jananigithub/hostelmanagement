@@ -1,0 +1,78 @@
+
+
+package hos;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.sql.*;
+public class Generate extends JFrame implements ActionListener
+{
+    JLabel l0;
+    JButton btn1,btn2,btn3,btn4;
+    Generate()
+    {
+        setVisible(true);
+        setSize(1400,800);
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        l0=new JLabel("LIST OF STUDENTS ACCOMODATED DURING HOLIDAYS");
+        l0.setForeground(Color.BLACK);
+        l0.setFont(new Font("Serif",Font.BOLD,40));
+        l0.setBounds(150,100,1500,30);
+        add(l0);
+        btn1=new JButton("festivals");
+        btn1.setBounds(150,300,150,40);
+        btn1.setActionCommand("festivals");
+        btn1.setFont(new Font("Serif",Font.BOLD,30));
+        add(btn1);
+        btn1.addActionListener(this);
+        
+        btn2=new JButton("coaching classes");
+        btn2.setBounds(400,300,250,40);
+        btn2.setActionCommand("coaching classes");
+        btn2.setFont(new Font("Serif",Font.BOLD,30));
+        add(btn2);
+        btn2.addActionListener(this);
+        
+        btn3=new JButton("internships");
+        btn3.setBounds(750,300,200,40);
+        btn3.setActionCommand("internships");
+        btn3.setFont(new Font("Serif",Font.BOLD,30));
+        add(btn3);
+        btn3.addActionListener(this);
+        
+        btn4=new JButton("home");
+        btn4.setBounds(350,400,200,40);
+        btn4.setActionCommand("home");
+        btn4.setFont(new Font("Serif",Font.BOLD,30));
+        add(btn4);
+        btn4.addActionListener(this);
+    }
+    @Override
+public void actionPerformed(ActionEvent e)
+{
+    switch (e.getActionCommand()) {
+           case "festivals":
+               new Gen1().setVisible(true);
+               break;
+           case "coaching classes":
+               new Gen2();
+               break;
+           case "internships":
+               new Gen3();
+               break;
+           case "home":
+               new Index();
+           default:
+               break;
+               
+}
+}
+public static void main(String args[])
+{
+new Generate();
+}
+        
+}       
+ 

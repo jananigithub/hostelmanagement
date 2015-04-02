@@ -1,0 +1,8 @@
+Hostel Management System:
+
+Project Description:
+
+              Language used	:	Java	
+              Back end database	:	Oracle
+              Description		:	This project has two major modules for the admin and the user .After logging in,the admin ensures storage and retrieval of student records by various categories.Data updation can be done effectively.The user i.e. the students can view the fee particulars for every semesters in accordance with their preferred mess choice in their respective login.
+
